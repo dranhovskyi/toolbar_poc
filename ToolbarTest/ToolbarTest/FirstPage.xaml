@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<toolbarTest:NavigationContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+                       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                       xmlns:toolbarTest="clr-namespace:ToolbarTest;assembly=ToolbarTest"
+                       x:Class="ToolbarTest.FirstPage">
+    <ContentPage.Content>
+        <StackLayout>
+            <Label Text="FirstPage!"
+                VerticalOptions="CenterAndExpand" 
+                HorizontalOptions="CenterAndExpand" />
+            <Button Text="Next page" Command="{Binding FirstCommand}" />
+        </StackLayout>
+    </ContentPage.Content>
+</toolbarTest:NavigationContentPage>
