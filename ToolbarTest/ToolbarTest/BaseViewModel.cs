@@ -6,7 +6,6 @@ namespace ToolbarTest
 {
     public class BaseViewModel : BindableBase, INavigatedAware
     {
-
         public virtual void OnNavigatedFrom(INavigationParameters parameters)
         {
         }

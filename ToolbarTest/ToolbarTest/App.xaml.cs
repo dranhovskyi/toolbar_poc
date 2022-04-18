@@ -16,6 +16,9 @@ namespace ToolbarTest
         protected override void OnInitialized()
         {
             InitializeComponent();
+
+            var toolbarView = Application.Current.Resources["ToolbarViewKey"] as ToolbarView;
+            toolbarView.BindingContext = Container.Resolve<IToolbarViewModel>();
         }
 
         protected override void Initialize()
@@ -31,6 +34,7 @@ namespace ToolbarTest
 
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
         {
+            containerRegistry.RegisterSingleton<IToolbarViewModel, ToolbarViewModel>();
             containerRegistry.RegisterForNavigation<MainPage, MainPageViewModel>("Navigation");
             containerRegistry.RegisterForNavigation<FirstPage, FirstPageViewModel>();
             containerRegistry.RegisterForNavigation<SecondPage, SecondPageViewModel>();

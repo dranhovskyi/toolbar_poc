@@ -2,7 +2,6 @@
 <NavigationPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="ToolbarTest.MainPage"
-             HasBackButton="False"
+             HasNavigationBar="True"
              BarBackgroundColor="Black"
-             BarTextColor="White"
-             HasNavigationBar="True" />
+             BarTextColor="White"/>

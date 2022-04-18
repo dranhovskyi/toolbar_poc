@@ -4,10 +4,10 @@
                        xmlns:toolbarTest="clr-namespace:ToolbarTest;assembly=ToolbarTest"
                        x:Class="ToolbarTest.SecondPage">
     <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Second page!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
+        <StackLayout BackgroundColor="Bisque">
+            <Label Text="{Binding Title}"
+                   VerticalOptions="Start" 
+                   HorizontalOptions="Start" />
             <Button Text="Next page" Command="{Binding SecondCommand}" />
         </StackLayout>
     </ContentPage.Content>

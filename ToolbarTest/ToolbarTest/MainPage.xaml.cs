@@ -1,6 +1,4 @@
-﻿using Xamarin.Forms;
-
-namespace ToolbarTest
+﻿namespace ToolbarTest
 {
     public partial class MainPage
     {

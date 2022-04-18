@@ -7,16 +7,24 @@ namespace ToolbarTest
     internal class FirstPageViewModel : BaseViewModel
     {
         private readonly INavigationService _navigationService;
+        private readonly IToolbarViewModel _toolbarViewModel;
 
-        public FirstPageViewModel(INavigationService navigationService)
+        public FirstPageViewModel(INavigationService navigationService, IToolbarViewModel toolbarViewModel)
         {
             _navigationService = navigationService;
-
+            _toolbarViewModel = toolbarViewModel;
             FirstCommand = new Command(async () => { await _navigationService.NavigateAsync("SecondPage"); });
         }
 
-        public string Title { get; set; } = "First";
+        public override void OnNavigatedTo(INavigationParameters parameters)
+        {
+            base.OnNavigatedTo(parameters);
+
+            _toolbarViewModel.Title = "First Page";
+        }
 
         public ICommand FirstCommand { get; set; }
+
+        public string Title { get; set; } = "First";
     }
 }
