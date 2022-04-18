@@ -4,10 +4,10 @@
                        xmlns:toolbarTest="clr-namespace:ToolbarTest;assembly=ToolbarTest"
                        x:Class="ToolbarTest.ThirdPage">
     <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Welcome to Xamarin.Forms!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
+        <StackLayout BackgroundColor="BurlyWood">
+            <Label Text="{Binding Title}"
+                   VerticalOptions="Start" 
+                   HorizontalOptions="Start" />
         </StackLayout>
     </ContentPage.Content>
 </toolbarTest:NavigationContentPage>

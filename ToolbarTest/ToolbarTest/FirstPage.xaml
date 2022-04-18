@@ -4,8 +4,8 @@
                        xmlns:toolbarTest="clr-namespace:ToolbarTest;assembly=ToolbarTest"
                        x:Class="ToolbarTest.FirstPage">
     <ContentPage.Content>
-        <StackLayout>
-            <Label Text="FirstPage!"
+        <StackLayout BackgroundColor="Aquamarine">
+            <Label Text="{Binding Title}"
                 VerticalOptions="CenterAndExpand" 
                 HorizontalOptions="CenterAndExpand" />
             <Button Text="Next page" Command="{Binding FirstCommand}" />

@@ -6,18 +6,18 @@
                              x:Class="ToolbarTest.App">
     <Application.Resources>
 
-        <toolbarTest:ToolbarView x:Key="ToolbarViewKey" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" BackgroundColor="MediumVioletRed" />
+        <toolbarTest:ToolbarView x:Key="ToolbarViewKey" VerticalOptions="FillAndExpand" Padding="40,20,40,20" HorizontalOptions="FillAndExpand" BackgroundColor="MediumVioletRed" />
 
-        <ControlTemplate x:Key="MainPagePresenter">
+        <!--<ControlTemplate x:Key="MainPagePresenter">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="50" />
                     <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
-                <ContentView Grid.Row="0" Content="{StaticResource ToolbarViewKey}" BindingContext="{TemplateBinding BindingContext}" />
+                <ContentView Grid.Row="0" Content="{StaticResource ToolbarViewKey}" BindingContext="{TemplateBinding Parent.BindingContext.ToolbarViewModel}" />
                 <ContentPresenter Grid.Row="1" />
             </Grid>
-        </ControlTemplate>
+        </ControlTemplate>-->
 
     </Application.Resources>
 </prism:PrismApplicationBase>

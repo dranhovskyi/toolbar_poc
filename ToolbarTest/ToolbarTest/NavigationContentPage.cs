@@ -1,4 +1,5 @@
-﻿using Xamarin.Forms;
+﻿using Prism.Ioc;
+using Xamarin.Forms;
 
 namespace ToolbarTest
 {
@@ -7,6 +8,7 @@ namespace ToolbarTest
         public NavigationContentPage()
         {
             NavigationPage.SetTitleView(this, Application.Current.Resources["ToolbarViewKey"] as ToolbarView);
+            NavigationPage.SetHasBackButton(this, false);
         }
     }
 }
