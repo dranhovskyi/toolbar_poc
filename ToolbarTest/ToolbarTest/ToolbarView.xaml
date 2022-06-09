@@ -1,6 +1,21 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
-<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="ToolbarTest.ToolbarView">
-    <Label Text="{Binding Title}" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" />
-</ContentView>
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<Grid x:Class="ToolbarTest.ToolbarView"
+      xmlns="http://xamarin.com/schemas/2014/forms"
+      xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+      BackgroundColor="MediumVioletRed"
+      HeightRequest="50"
+      HorizontalOptions="FillAndExpand"
+      VerticalOptions="End">
+    <Label HorizontalOptions="FillAndExpand"
+           Text="{Binding Title}"
+           VerticalOptions="CenterAndExpand" />
+    <Slider Margin="0,-5,0,0"
+            HeightRequest="15"
+            Maximum="10"
+            MaximumTrackColor="Blue"
+            Minimum="0"
+            MinimumTrackColor="BlanchedAlmond"
+            ThumbColor="Red"
+            VerticalOptions="Start"
+            Value="5" />
+</Grid>

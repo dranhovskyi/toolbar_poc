@@ -1,9 +1,10 @@
-﻿using Android.Content;
+﻿using System.Reflection;
+using Android.Content;
 using Android.Util;
+using AndroidX.AppCompat.Widget;
 using ToolbarTest;
 using ToolbarTest.Droid;
 using Xamarin.Forms;
-using Xamarin.Forms.Internals;
 using Xamarin.Forms.Platform.Android;
 using AView = Android.Views.View;
 using Xamarin.Forms.Platform.Android.AppCompat;
@@ -13,21 +14,23 @@ namespace ToolbarTest.Droid
 {
     internal class CustomNavigationPageRenderer : NavigationPageRenderer
     {
-        Context _context;
+        private Toolbar _toolbar;
 
-        AndroidX.AppCompat.Widget.Toolbar _toolbar;
-
-        public CustomNavigationPageRenderer(Context context) : base(context)
+        public CustomNavigationPageRenderer(Context context)
+            : base(context)
         {
-            _context = context;
         }
 
         public override void OnViewAdded(Android.Views.View child)
         {
             base.OnViewAdded(child);
-            if (child.GetType() == typeof(AndroidX.AppCompat.Widget.Toolbar))
+            if (child.GetType() == typeof(Toolbar))
             {
-                _toolbar = (AndroidX.AppCompat.Widget.Toolbar)child;
+                _toolbar = (Toolbar)child;
+                _toolbar.SetContentInsetsAbsolute(0, 0);
+                _toolbar.SetContentInsetsRelative(0, 0);
+                _toolbar.ContentInsetStartWithNavigation = 0;
+                _toolbar.SetPadding(0, 0, 0, 0);
             }
         }
 
@@ -35,46 +38,60 @@ namespace ToolbarTest.Droid
         {
             base.OnLayout(changed, l, t, r, b);
 
-            if (_toolbar != null)
+            if (_toolbar == null)
             {
-                int barHeight = ActionBarHeight();
+                return;
+            }
 
-                bool toolbarLayoutCompleted = false;
-                for (var i = 0; i < ChildCount; i++)
+            var barHeight = ActionBarHeight();
+            for (var i = 0; i < ChildCount; i++)
+            {
+                var child = GetChildAt(i);
+                if (child?.GetType().Name == "PageContainer")
                 {
-                    AView child = GetChildAt(i);
-
-                    _toolbar.Layout(0, b - barHeight, r - l, b);
-                    
-                    if (!(child is AndroidX.AppCompat.Widget.Toolbar))
+                    var propertyInfo = child.GetType()?.GetProperty("Child", BindingFlags.Public | BindingFlags.Instance);
+                    var visualElement = (IVisualElementRenderer)propertyInfo?.GetValue(child);
+                    if (!(visualElement?.Element is Page childPage))
                     {
-                        child.Layout(0, 0, r - l, b - barHeight);
+                        return;
                     }
 
-                    toolbarLayoutCompleted = true;
-                }
-
-                if (!toolbarLayoutCompleted)
-                {
-                    _toolbar.Layout(0, b - barHeight, r - l, b);
+                    // We need to base the layout of both the child and the bar on the presence of the NavBar on the child Page itself.
+                    // If we layout the bar based on ToolbarVisible, we get a white bar flashing at the top of the screen.
+                    // If we layout the child based on ToolbarVisible, we get a white bar flashing at the bottom of the screen.
+                    var childHasNavBar = NavigationPage.GetHasNavigationBar(childPage);
+                    if (childHasNavBar)
+                    {
+                        child?.Layout(0, -10, r - l, b - barHeight);
+                        _toolbar.Layout(0, b - barHeight, r - l, b);
+                        _toolbar.BringToFront(); 
+                        System.Diagnostics.Debug.WriteLine(_toolbar.ChildCount);
+                        var container = _toolbar.GetChildAt(1);
+                        if (container != null)
+                        {
+                            container.BringToFront();
+                        }
+                    }
+                    else
+                    {
+                        child?.Layout(0, 0, r, b);
+                        _toolbar.Layout(0, -1000, r, barHeight - 1000);
+                    }
                 }
             }
         }
 
         private int ActionBarHeight()
         {
-            var attr = Resource.Attribute.actionBarSize;
-
-            int actionBarHeight;
-            using (var tv = new TypedValue())
+            const int attr = Resource.Attribute.actionBarSize;
+            var actionBarHeight = 0;
+            using (var typedValue = new TypedValue())
             {
-                actionBarHeight = 0;
-                if (Context.Theme.ResolveAttribute(attr, tv, true))
-                    actionBarHeight = TypedValue.ComplexToDimensionPixelSize(tv.Data, Resources.DisplayMetrics);
+                if (Context?.Theme != null && Context.Theme.ResolveAttribute(attr, typedValue, true))
+                {
+                    actionBarHeight = TypedValue.ComplexToDimensionPixelSize(typedValue.Data, Resources?.DisplayMetrics);
+                }
             }
-
-            if (actionBarHeight <= 0)
-                return Device.Info.CurrentOrientation.IsPortrait() ? (int)Context.ToPixels(56) : (int)Context.ToPixels(48);
 
             return actionBarHeight;
         }

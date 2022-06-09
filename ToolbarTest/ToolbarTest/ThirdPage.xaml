@@ -1,13 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<toolbarTest:NavigationContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-                       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-                       xmlns:toolbarTest="clr-namespace:ToolbarTest;assembly=ToolbarTest"
-                       x:Class="ToolbarTest.ThirdPage">
-    <ContentPage.Content>
-        <StackLayout BackgroundColor="BurlyWood">
-            <Label Text="{Binding Title}"
-                   VerticalOptions="Start" 
-                   HorizontalOptions="Start" />
-        </StackLayout>
-    </ContentPage.Content>
-</toolbarTest:NavigationContentPage>
+<toolbarTest:ToolbarContentPage x:Class="ToolbarTest.ThirdPage"
+                                xmlns="http://xamarin.com/schemas/2014/forms"
+                                xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                                xmlns:toolbarTest="clr-namespace:ToolbarTest;assembly=ToolbarTest">
+    <StackLayout BackgroundColor="BurlyWood">
+        <Label HorizontalOptions="Start"
+               Text="{Binding Title}"
+               VerticalOptions="Start" />
+    </StackLayout>
+</toolbarTest:ToolbarContentPage>
