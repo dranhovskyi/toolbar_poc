@@ -2,20 +2,31 @@
 <Grid x:Class="ToolbarTest.ToolbarView"
       xmlns="http://xamarin.com/schemas/2014/forms"
       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-      BackgroundColor="MediumVioletRed"
-      HeightRequest="50"
+      BackgroundColor="Transparent"
+      HeightRequest="60"
+      InputTransparent="True"
       HorizontalOptions="FillAndExpand"
       VerticalOptions="End">
-    <Label HorizontalOptions="FillAndExpand"
-           Text="{Binding Title}"
-           VerticalOptions="CenterAndExpand" />
-    <Slider Margin="0,-5,0,0"
+    <Grid.RowDefinitions>
+        <RowDefinition Height="10" />
+        <RowDefinition Height="50" />
+    </Grid.RowDefinitions>
+
+    <ContentView Grid.Row="1" BackgroundColor="Purple" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
+        <Label HorizontalOptions="FillAndExpand"
+               Text="{Binding Title}"
+               VerticalOptions="CenterAndExpand" />
+    </ContentView>
+
+    <Slider Grid.Row="1"
             HeightRequest="15"
             Maximum="10"
+            Margin="0,-8,0,0"
             MaximumTrackColor="Blue"
             Minimum="0"
             MinimumTrackColor="BlanchedAlmond"
             ThumbColor="Red"
             VerticalOptions="Start"
             Value="5" />
+
 </Grid>

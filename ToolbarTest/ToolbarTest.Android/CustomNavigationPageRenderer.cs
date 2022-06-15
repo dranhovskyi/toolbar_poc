@@ -6,7 +6,6 @@ using ToolbarTest;
 using ToolbarTest.Droid;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
-using AView = Android.Views.View;
 using Xamarin.Forms.Platform.Android.AppCompat;
 
 [assembly: ExportRenderer(typeof(MainPage), typeof(CustomNavigationPageRenderer))]
@@ -31,6 +30,7 @@ namespace ToolbarTest.Droid
                 _toolbar.SetContentInsetsRelative(0, 0);
                 _toolbar.ContentInsetStartWithNavigation = 0;
                 _toolbar.SetPadding(0, 0, 0, 0);
+                _toolbar.SetBackgroundColor(Color.Transparent.ToAndroid());
             }
         }
 
@@ -62,15 +62,8 @@ namespace ToolbarTest.Droid
                     var childHasNavBar = NavigationPage.GetHasNavigationBar(childPage);
                     if (childHasNavBar)
                     {
-                        child?.Layout(0, -10, r - l, b - barHeight);
-                        _toolbar.Layout(0, b - barHeight, r - l, b);
-                        _toolbar.BringToFront(); 
-                        System.Diagnostics.Debug.WriteLine(_toolbar.ChildCount);
-                        var container = _toolbar.GetChildAt(1);
-                        if (container != null)
-                        {
-                            container.BringToFront();
-                        }
+                        child?.Layout(0, 0, r - l, b - barHeight + 30);
+                        _toolbar.Layout(0, b - barHeight - 30, r - l, b);
                     }
                     else
                     {
